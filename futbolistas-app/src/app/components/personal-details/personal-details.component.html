@@ -1,0 +1,39 @@
+<p *ngIf="errorMessage.length!=0" class="text-danger">{{errorMessage}}</p>
+<div *ngIf="(userLoginOn && !editMode) || !userLoginOn">
+    <p><b> Nombre: </b> {{user?.nombres}} </p>
+    <p><b> email: </b> {{user?.username}}</p>
+
+    <button *ngIf="userLoginOn && !editMode" (click)="editMode=true"  class="btn btn-dark"><img
+        src="https://cdn.icon-icons.com/icons2/1572/PNG/96/3592815-compose-create-edit-edit-file-office-pencil-writing_107734.png"
+        width="8%" alt="editar" />Editar Datos Personales</button>
+</div>
+
+<form *ngIf="userLoginOn && editMode" [formGroup]="registerForm" >
+    <div class="form-group row">
+        <label for="inputNombres" class="col-sm-1 col-form-label">Nombre</label>
+        <div class="col-sm-11">
+        <input type="text" formControlName="nombres" class="form-control" id="inputNombres">
+
+            <div *ngIf="nombres.invalid && (nombres.dirty || nombres.touched)" class="text-danger">
+                <div *ngIf="nombres.errors?.['required']">
+                    El Nombre es requerido.
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputUsername" class="col-sm-1 col-form-label">Username</label>
+        <div class="col-sm-11">
+        <input type="text" formControlName="username" class="form-control" id="inputUsername">
+        <div *ngIf="username.invalid && (username.dirty || username.touched)" class="text-danger">
+            <div *ngIf="username.errors?.['required']">
+                El Username es requerido.
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <button type="submit" (click)="savePersonalDetailsData()"  class="btn btn-dark mt-3">Guardar</button>
+    <a class="btn btn-danger mt-3" (click)="editMode=false">Cancelar</a>
+</form>

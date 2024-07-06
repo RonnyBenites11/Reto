@@ -1,0 +1,60 @@
+<app-nav></app-nav>
+
+<div class="card">
+  <div class="card-header">
+    Datos Personales
+  </div>
+  <div class="card-body m-0">
+    <app-personal-details></app-personal-details>
+  </div>
+  <div class="container mt-4">
+    <h2>Listado de Futbolistas</h2>
+
+    <!-- Botón para cargar un futbolista específico -->
+    <div class="row mb-3">
+      <div class="col">
+        <label for="futbolistaId" class="form-label">ID del Futbolista:</label>
+        <input type="number" class="form-control" id="futbolistaId" [(ngModel)]="futbolistaId" name="futbolistaId">
+      </div>
+      <div class="col align-self-end">
+        <button class="btn btn-primary" (click)="cargarFutbolista()">Cargar Futbolista</button>
+      </div>
+    </div>
+
+    <!-- Lista de futbolistas -->
+
+    <div class="list-group" *ngIf="futbolistas.length">
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nombres</th>
+            <th scope="col">Apellidos</th>
+            <th scope="col">Fecha de Nacimiento</th>
+            <th scope="col">Posición</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let futbolista of futbolistas">
+            <td>{{ futbolista.id }}</td>
+            <td>{{ futbolista.nombres }}</td>
+            <td>{{ futbolista.apellidos }}</td>
+            <td>{{ futbolista.fechaDeNacimiento }}</td>
+            <td>{{ futbolista.posicion }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+    <!-- Paginación -->
+    <ngx-pagination
+      [id]="'custom'"
+
+      [collectionSize]="totalElements"
+
+      [pageSize]="size"
+      >
+    </ngx-pagination>
+  </div>
+
+
+
